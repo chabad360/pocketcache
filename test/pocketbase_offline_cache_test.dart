@@ -71,6 +71,17 @@ class DatabaseMock implements CommonDatabase {
 	@override
 	Stream<SqliteUpdate> get updates => throw UnimplementedError();
 
+  @override
+  VoidPredicate? commitFilter;
+
+  @override
+  // TODO: implement commits
+  Stream<void> get commits => throw UnimplementedError();
+
+  @override
+  // TODO: implement rollbacks
+  Stream<void> get rollbacks => throw UnimplementedError();
+
 }
 
 PocketBase basePb = PocketBase("");
@@ -150,6 +161,9 @@ class PbWrapper implements PocketBase {
 	Future<T> send<T extends dynamic>(String path, {String method = "GET", Map<String, String> headers = const <String, String>{}, Map<String, dynamic> query = const <String, dynamic>{}, Map<String, dynamic> body = const <String, dynamic>{}, List<MultipartFile> files = const <MultipartFile>[]}) {
 		throw UnimplementedError();
 	}
+
+  @override
+  CronService crons = basePb.crons;
 }
 
 class RecordServiceMock implements RecordService {

@@ -10,19 +10,19 @@ dependencies:
   flutter:
     sdk: flutter
 
-  logger: ^2.0.0
-  http: ^1.0.0
-  path: ^1.0.0
-  path_provider: ^2.0.0
+  logger: ^2.5.0
+  http: ^1.4.0
+  path: ^1.9.1
+  path_provider: ^2.1.5
   pocketbase: ^0.22.0
-  sqlite3: ^2.0.0
-  sqlite3_flutter_libs: ^0.5.0
+  sqlite3: ^2.7.6
+  sqlite3_flutter_libs: ^0.5.33
   state_groups: ^0.5.0
-  synchronized: ^3.0.0
+  synchronized: ^3.3.1
 
 dev_dependencies:
-  lints: ^3.0.0
-  test: ^1.24.0
+  lints: ^6.0.0
+  test: ^1.26.2
   dart_lints:
     git:
       url: https://gitlab.com/azuredown/dart-lints.git

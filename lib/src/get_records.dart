@@ -125,10 +125,9 @@ extension ListWrapper on PbOfflineCache {
 
         if (expansions != null) {
           for (final String key in expansions.keys) {
-            final List<Map<String, dynamic>> items = <Map<String, dynamic>>[];
-            for (final Map<String, dynamic> item in expansions[key]!) {
-              items.add(item);
-            }
+            final List<Map<String, dynamic>> items = <Map<String, dynamic>>[
+              ...(expansions[key] as List<Map<String, dynamic>>)
+            ];
             unawaited(insertRawDataIntoLocalDb(key, items, logger, stackTrace: StackTrace.current)
                 .onError((Object? e, StackTrace s) => debugPrint("$e\n$s")));
           }

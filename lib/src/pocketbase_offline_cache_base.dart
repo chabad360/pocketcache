@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:path/path.dart';
 import 'package:pocketbase/pocketbase.dart';
@@ -251,20 +250,24 @@ class PbOfflineCache {
     while (true) {
       try {
         await checkConnection();
-      } catch (_) {
+      } catch (e, s) {
         if (remoteAccessible) {
           remoteAccessible = false;
-          logger.i("DB do longer accessible");
+          logger.w("DB do longer accessible", error: e, stackTrace: s);
           broadcastToListeners("pocketcache/network-state-changed", false);
         }
       }
-      await Future<void>.delayed(const Duration(seconds: 10));
+      await Future<void>.delayed(const Duration(seconds: 5));
     }
   }
 
   Future<void> checkConnection() async {
-    final http.Response response = await http.get(pb.buildURL("/api/health")).timeout(const Duration(seconds: 10));
-    if (response.statusCode != 200) {
+    final Map<String, dynamic> response = await pb
+        .send(
+          "/api/health",
+        )
+        .timeout(const Duration(seconds: 5));
+    if (response["code"] != 200) {
       remoteAccessible = false;
     } else {
       if (!remoteAccessible) {
